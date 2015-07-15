@@ -1,26 +1,124 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="style.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    
   </head>
   <body>
-    <script>
-
+  <div id="top">
+      <h1 id='banner'>twittler</h1>
+      <nav>
+        <ul>
+          <li id='stream' class='lists'>stream</li>
+          <li id='home' class='lists'>home</li>
+          
+        </ul>
+      </nav>
+    </div>
+    <div id="display">
+    
+    </div>
+      
+    
+    <script type="text/javascript">
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        var $body = $(document.body);
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+        var $tweetMain = $('<ol></ol>',{"id":"tweetMain","class":"lists"});
+        var $tweetStream = $('<ol></ol>',{"id":"tweetStream","class":"lists"});
+        var $tweetUser = $('<ol></ol>',{"id":"tweetUser","class":"lists"});
+        var $display = $("#display");
+        $display.append($tweetMain,$tweetStream,$tweetUser);
+        
+        $tweetStream.hide();
+        // $tweetMain.hide();
+        $tweetUser.hide();
+
+        //TweetUser test#########################//
+        // update(0,$tweetUser,true,'shawndrost');
+        //TweetUser test#########################//
+        
+        update(0,$tweetMain);
+
+        var $home = $('#home');
+        $home.click(function(){
+          $tweetMain.html("");
+          update(streams.home.length-11, $tweetMain,true);
+          $tweetStream.hide();
+          $tweetUser.hide();
+          $tweetMain.show();
+        });
+
+        var $stream = $('#stream');
+        $stream.click(function(){
+          $tweetMain.hide();
+          $tweetUser.hide();
+          $tweetStream.show();
+        });
+
+        document.addEventListener("click", userListener);
+
+        function userListener(event){
+          var clicked = event.target;
+          if(clicked.nodeName==="USER"){
+            $tweetUser.empty();
+            $tweetMain.hide();
+            $tweetStream.hide();
+            update(0,$tweetUser,true, clicked.innerHTML);
+            $tweetUser.show();
+          }
+        };
+
+
+        (function start(stop){
+          var temp;
+          var i;
+          setTimeout(function(){
+            temp = update(stop,$tweetStream);
+
+            start(temp);
+          },700);
+          
+        })(update(0,$tweetStream));
+
+        
+
 
       });
+
+      function update(stop,stream,append,name){
+        var index = streams.home.length-1;
+        var oldLength = index;
+        while(index > stop){
+          var tweet = streams.home[index];
+          var tweetString = "<li>" + "@" + "<user>" + tweet.user + "</user>: " + tweet.message + " - " + "<date>" + formatDate(tweet.created_at) + "</date></li>";
+          var $user = $('user');
+          if(append){
+            if(name!==undefined){
+              if(tweet.user===name){
+                stream.append(tweetString);
+              }
+            }else{
+              stream.append(tweetString);
+            }
+          }
+          else{
+            stream.prepend(tweetString);
+          }
+          index -= 1;
+        }
+        return oldLength;
+      }
+
+
+        
+
+      var formatDate = function(date){
+        return date.getMonth() + "." + date.getDate() + "."  + (date.getYear()-100);
+      }
+      
 
     </script>
   </body>

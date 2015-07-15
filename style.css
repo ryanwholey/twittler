@@ -1,0 +1,71 @@
+#top{
+	position: absolute; 
+  top: 0px; 
+  height: 100px;
+  left: 0px; 
+  right: 0px;
+  background-color: lightskyblue;
+  text-align: center;
+}
+#banner{
+	font-size: 3em;
+	font-family: monospace;
+	color: white;
+}
+#home, #stream, user{
+	cursor: pointer;
+}
+nav{
+	top:0px;
+	height: 35px;
+	left:0px;
+	right:0px;
+	background-color: lightskyblue;
+}
+nav ul li{
+	display: inline;
+	padding: 7px 30px 0px 10px;
+	float: right;
+	font-size: 1.5em;
+	font-family: 'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif;
+	color: white;
+}
+#display{
+	margin: 160px 20px 0px 20px;
+	height: 250px;
+	left: 0px;
+	right: 0px;
+	overflow: scroll;
+	border-width: 5px;
+	border-style: solid;
+	border-color: lightskyblue;
+}
+/*#tweetMain{
+	padding-top: 20px;
+}
+#tweetStream{
+	padding-top: 20px;
+	
+}*/
+.lists{
+	list-style:none;
+}
+user{
+	color:lightskyblue;
+	font-family: verdana;
+}
+date{
+	color: lightskyblue;
+}
+.lists li{
+	font-family: courier new;
+}
+
+
+
+
+
+
+
+
+
