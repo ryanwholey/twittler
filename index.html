@@ -20,7 +20,10 @@
     <div id="display">
     
     </div>
-      
+    <div id='inputArea'>
+      <input id='tweetBox' type='textArea'></input>
+      <input id='submit' type='button' value='tweet'></input>
+    </div>
     
     <script type="text/javascript">
       $(document).ready(function(){
@@ -30,7 +33,19 @@
         var $tweetStream = $('<ol></ol>',{"id":"tweetStream","class":"lists"});
         var $tweetUser = $('<ol></ol>',{"id":"tweetUser","class":"lists"});
         var $display = $("#display");
+        var $tweetBox = $("#tweetBox");
+
         $display.append($tweetMain,$tweetStream,$tweetUser);
+
+        var $submit = $('#submit');
+        $submit.click(function(){
+          //FILL ME IN
+          // streams.users.visitor = [];
+          // visitor = "Ryan";
+          // var message = $('#tweetBox').val();
+          // $tweetBox.val('');
+          // writeTweet(message);
+        });
         
         $tweetStream.hide();
         // $tweetMain.hide();
@@ -40,7 +55,7 @@
         // update(0,$tweetUser,true,'shawndrost');
         //TweetUser test#########################//
         
-        update(0,$tweetMain);
+        update(0, $tweetMain);
 
         var $home = $('#home');
         $home.click(function(){
@@ -88,7 +103,7 @@
 
       });
 
-      function update(stop,stream,append,name){
+      function update(stop, stream, append, name){
         var index = streams.home.length-1;
         var oldLength = index;
         while(index > stop){
@@ -110,10 +125,8 @@
           index -= 1;
         }
         return oldLength;
-      }
+      };
 
-
-        
 
       var formatDate = function(date){
         return date.getMonth() + "." + date.getDate() + "."  + (date.getYear()-100);
