@@ -39,11 +39,21 @@
 
         var $submit = $('#submit');
         $submit.click(function(){
-          //FILL ME IN
-          // streams.users.visitor = [];
-          // visitor = "Ryan";
-          // var message = $('#tweetBox').val();
-          // $tweetBox.val('');
+          var tweet = {};
+          var inputObj = parseInput($tweetBox.val());
+          tweet.message = inputObj.message;
+          $tweetBox.val('');
+          tweet.user = inputObj.user;
+          streams.users[tweet.user] = [];
+          tweet.created_at = new Date();
+          addTweet(tweet);
+          $tweetMain.html("");
+          update(streams.home.length-11, $tweetMain,true);
+
+          
+
+          // window.visitor = 'Ryan';
+          // streams.users['Ryan']=[];
           // writeTweet(message);
         });
         
@@ -77,7 +87,7 @@
 
         function userListener(event){
           var clicked = event.target;
-          if(clicked.nodeName==="USER"){
+          if(clicked.nodeName === "USER"){
             $tweetUser.empty();
             $tweetMain.hide();
             $tweetStream.hide();
@@ -92,7 +102,6 @@
           var i;
           setTimeout(function(){
             temp = update(stop,$tweetStream);
-
             start(temp);
           },700);
           
@@ -111,8 +120,8 @@
           var tweetString = "<li>" + "@" + "<user>" + tweet.user + "</user>: " + tweet.message + " - " + "<date>" + formatDate(tweet.created_at) + "</date></li>";
           var $user = $('user');
           if(append){
-            if(name!==undefined){
-              if(tweet.user===name){
+            if(name !== undefined){
+              if(tweet.user === name){
                 stream.append(tweetString);
               }
             }else{
@@ -126,11 +135,26 @@
         }
         return oldLength;
       };
+      var parseInput = function(incoming){
+        var info = {};
+        if((/^\/user\s/).test(incoming)){
+          var inArr = incoming.split(' ');
+          info.user = inArr[1];
+          info.message = inArr.slice(2).join(' ');
+        }else{
+          info.user = 'visitor';
+          info.message = incoming;
+        }
+        return info;
 
+
+      }
 
       var formatDate = function(date){
         return date.getMonth() + "." + date.getDate() + "."  + (date.getYear()-100);
       }
+
+
       
 
     </script>
