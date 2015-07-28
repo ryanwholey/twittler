@@ -38,7 +38,7 @@
         $display.append($tweetMain,$tweetStream,$tweetUser);
 
         var $submit = $('#submit');
-        $submit.click(function(){
+        $submit.click(function subFunc(){
           var tweet = {};
           var inputObj = parseInput($tweetBox.val());
           tweet.message = inputObj.message;
